@@ -1,13 +1,14 @@
 import React from 'react';
-import Store from '../Store/Store';
+import { useSelector } from 'react-redux';
 import Books from './Shared/Books';
-import AddBook from './AddBook';
 
-const DisplayBooks = () => Store.map((book) => (
-  <>
-    <Books key={book.id} title={book.title} author={book.author} />
-    <AddBook />
-  </>
-));
+const DisplayBooks = () => {
+  const selectedBooks = useSelector((state) => state.books);
+  return (
+    selectedBooks.books.map((book) => (
+      <Books key={book.id} id={book.id} title={book.title} author={book.author} />
+    ))
+  );
+};
 
 export default DisplayBooks;
