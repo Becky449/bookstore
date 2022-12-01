@@ -144,7 +144,6 @@ Install this project with:
 
 - npm i
 - npm install
-- sudo apt install npm
 
 ### Usage
 
