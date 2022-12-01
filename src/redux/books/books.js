@@ -1,43 +1,29 @@
-import { v4 as uuidv4 } from 'uuid';
-import types from '../types/types';
+const ADD_BOOK = 'BookStores/books/ADD_BOOK';
+const REMOVE_BOOK = 'BookStores/books/REMOVE_BOOK';
 
-// Initial state
-const initialState = {
-  books: [
-    { id: uuidv4(), title: 'The Fugitive', author: 'Harrison Ford' },
-    { id: uuidv4(), title: 'Game of Thrones', author: 'George Orwell' },
-  ],
-};
+const initialState = [];
 
-// Action creators
-export const addBookToStore = (payload) => ({
-  type: types.BOOK_ADDED,
+// This code displays Action Creators
+export const addBook = (payload) => ({
+  type: ADD_BOOK,
   payload,
 });
-
-export const removeBookFromStore = (payload) => ({
-  type: types.BOOK_REMOVED,
-  payload,
+export const removeBook = (bookId) => ({
+  type: REMOVE_BOOK,
+  id: bookId,
 });
 
-// Reducer
-const booksReducer = (state = initialState, action) => {
+// This Code shows Reducers
+
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.BOOK_ADDED:
-      return {
-        ...state,
-        books: [...state.books, action.payload],
-      };
-
-    case types.BOOK_REMOVED:
-      return {
-        ...state,
-        books: [...state.books.filter((book) => book.id !== action.payload)],
-      };
-
+    case ADD_BOOK:
+      return [...state, action.payload];
+    case REMOVE_BOOK:
+      return state.filter((book) => book.id !== action.id);
     default:
       return state;
   }
 };
 
-export default booksReducer;
+export default reducer;
