@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import BookList from './BookList';
 import Categories from './Categories';
 
-function BookStore() {
+function Books() {
   return (
     <Router>
       <Navbar />
@@ -17,4 +17,4 @@ function BookStore() {
   );
 }
 
-export default BookStore;
+export default Books;
