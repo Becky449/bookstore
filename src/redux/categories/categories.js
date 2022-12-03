@@ -1,15 +1,20 @@
-const STATUS_CHECKER = 'STATUS_CHECKER';
+const CHECK_STATUS = 'BOOKSTORE/categories/CHECK_STATUS';
 
-const statusChecker = () => ({ type: STATUS_CHECKER });
+export const checkStatus = () => ({
+  type: CHECK_STATUS,
+});
 
-const handleStatus = (state = [], action) => {
-  switch (action.type) {
-    case STATUS_CHECKER:
-      return 'Under construction';
+const initialState = [];
+
+// reducer
+const checkStatusReducer = (state = initialState, action) => {
+  const { type } = action;
+  switch (type) {
+    case CHECK_STATUS:
+      return 'UNDER_CONSTRUCTION';
     default:
       return state;
   }
 };
 
-export default handleStatus;
-export { statusChecker };
+export default checkStatusReducer;

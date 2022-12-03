@@ -1,68 +1,109 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addAPI, fetchAPI, removeAPI } from '../../API/api';
+/* eslint-disable no-use-before-define */
+const ADD_BOOK = 'BOOKSTORE/book/ADD_BOOK';
+const REMOVE_BOOK = 'BOOKSTORE/book/REMOVE_BOOK';
+const GET_BOOK = 'BOOKSTORE/book/GET_BOOK';
+const baseUrl = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/N9kNSPkepKOodGzyBDZW/books';
+const initialState = [];
 
-const FETCH_BOOKS = 'book-store/books/FETCH_BOOKS';
-const ADD_BOOK = 'book-store/books/ADD_BOOK';
-const REMOVE_BOOK = 'book-store/books/REMOVE_BOOK';
+const getBookFromApi = async () => {
+  const res = await fetch(baseUrl, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
 
-const fetchBooks = createAsyncThunk(
-  FETCH_BOOKS,
-  async () => {
-    const response = await fetchAPI();
-    return response;
-  },
-);
-
-const addBook = createAsyncThunk(
-  ADD_BOOK,
-  async (Obj) => {
-    await addAPI(Obj);
-    return Obj;
-  },
-);
-
-const removeBook = createAsyncThunk(
-  REMOVE_BOOK,
-  async (id) => {
-    await removeAPI(id);
-    return id;
-  },
-);
-
-const initialState = {
-  status: null,
-  entities: [],
+  });
+  const data = await res.json();
+  const bookData = Object.keys(data).map((id) => ({
+    id,
+    title: data[id][0].title,
+    author: data[id][0].author,
+  }));
+  return bookData;
 };
 
-const handleBookSlice = createSlice({
-  name: 'handleBook',
-  initialState,
-  extraReducers: (builder) => {
-    builder.addCase(fetchBooks.fulfilled, (state, action) => {
-      const newBookList = [];
-      Object.entries(action.payload).forEach((item) => {
-        newBookList.push({
-          id: item[0],
-          title: item[1][0].title,
-          author: item[1][0].author,
-        });
-      });
-      // eslint-disable-next-line no-param-reassign
-      state.entities = newBookList;
-    });
-    builder.addCase(addBook.fulfilled, (state, action) => {
-      state.entities.push({
-        id: action.payload.item_id,
-        title: action.payload.title,
-        author: action.payload.author,
-      });
-    });
-    builder.addCase(removeBook.fulfilled, (state, action) => {
-      // eslint-disable-next-line no-param-reassign
-      state.entities = state.entities.filter((book) => book.id !== action.payload);
-    });
-  },
+// action for getting books
+export const getBook = () => (async (dispatch) => {
+  const data = await getBookFromApi();
+  dispatch({
+    type: GET_BOOK,
+    payload: data,
+
+  });
 });
 
-export default handleBookSlice.reducer;
-export { fetchBooks, addBook, removeBook };
+const PushbookstoApi = async (payload) => {
+  const {
+    id, title, author, category,
+  } = payload;
+  const sendBooks = await fetch(baseUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      item_id: id,
+      title,
+      author,
+      category,
+    }),
+  });
+  return sendBooks;
+};
+
+// action for pushing books
+export const pushBook = (payload) => (async (dispatch) => {
+  const { id, title, author } = payload;
+  await PushbookstoApi(payload);
+  dispatch({
+    type: ADD_BOOK,
+    payload: {
+      id,
+      title,
+      author,
+    },
+
+  });
+});
+
+// for removing book
+
+const removeBookFromApi = async (id) => {
+  const del = await fetch(`${baseUrl}/${id}`, {
+    method: 'DELETE',
+    body: JSON.stringify({
+      item_id: id,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  (await del.text());
+};
+
+export const removeBooks = (id) => (async (dispatch) => {
+  await removeBookFromApi(id);
+  dispatch({
+    type: REMOVE_BOOK,
+    id,
+
+  });
+});
+
+// reducers
+
+const booksReducer = (state = initialState, action) => {
+  const { type, payload, id } = action;
+  switch (type) {
+    case ADD_BOOK:
+      return [...state, payload];
+    case REMOVE_BOOK:
+      return state.filter((book) => book.id !== id);
+    case GET_BOOK:
+      return payload;
+    default:
+      return state;
+  }
+};
+
+export default booksReducer;

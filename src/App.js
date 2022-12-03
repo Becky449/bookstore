@@ -1,18 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Books from './components/Books';
+import { Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Navigation from './components/Navigation';
+import Booklist from './components/booklist';
 import Categories from './components/categories';
-import Navigation from './components/Navigate';
+import store from './redux/configureStore';
 
 function App() {
   return (
-    <Router>
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<Books />} />
-        <Route path="/categories" element={<Categories />} />
-      </Routes>
-    </Router>
+    <>
+      <Provider store={store}>
+        <Navigation />
+        <Routes>
+          <Route exact path="/" element={<Booklist />} />
+          <Route exact path="/categories" element={<Categories />} />
+        </Routes>
+      </Provider>
+    </>
   );
 }
 

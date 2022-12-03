@@ -1,53 +1,64 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { removeBook } from '../redux/Books/books';
+import { removeBooks, getBook } from '../redux/books/books';
 
-function Books(props) {
-  const { id, title, author } = props;
+const Book = (props) => {
+  const { title, author, id } = props;
   const dispatch = useDispatch();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(removeBook(id));
+  const handledelete = (id) => {
+    dispatch(removeBooks(id));
+    dispatch(getBook());
   };
 
   return (
-    <div className="buks-list">
-      <div>
-        <span className="cate">Category</span>
-        <h3>{title}</h3>
-        <span className="authors">{author}</span>
-        <div className="button">
-          <button type="submit">Comments</button>
-          <button onClick={handleSubmit} type="submit">Remove</button>
-          <button type="submit">Edit</button>
+
+    <div className="bookContainer">
+      <div className="book-wrapper">
+        <ul className="texts">
+          <li className="category">Action</li>
+          <li className="title">
+            {' '}
+            {title}
+            {' '}
+          </li>
+          <li className="author">
+            {' '}
+            {author}
+          </li>
+        </ul>
+        <div className="btns">
+          <button className="btn" type="button">Comments</button>
+          <button className="rmv btn" type="submit" onClick={() => handledelete(id)}>Remove</button>
+          <button className="btn edit" type="button">Edit</button>
         </div>
       </div>
 
-      <div className="reading">
-        <div className="pre-pre">
-          <div className="progress" />
-          <div className="read-desc">
-            <div className="round" />
-            <div className="container">
-              <span className="percent-com">78%</span>
-              <span className="comon">Completed</span>
-            </div>
-          </div>
-        </div>
-        <div className="first-chap">
-          <h2>CURRENT CHAPTER</h2>
-          <p>Chapter 12</p>
-          <button type="submit">UPDATE PROGRESS</button>
+      <div className="progressBar">
+        <div className="progressreader" />
+        <div className="completion-status">
+          <p className="finished">64%</p>
+          <p className="completed">Completed</p>
         </div>
       </div>
+
+      <div className="chapter">
+        <p className="current">CURRENT CHAPTER</p>
+        <p className="chapter-number">Chapter 17</p>
+        <button className="update" type="submit">UPDATE PROGRESS</button>
+
+      </div>
+
     </div>
-  );
-}
 
-Books.propTypes = {
+  );
+};
+
+Book.propTypes = ({
   id: PropTypes.string,
   title: PropTypes.string,
   author: PropTypes.string,
-}.isRequired;
+  category: PropTypes.string,
+}).isRequired;
 
-export default Books;
+export default Book;
