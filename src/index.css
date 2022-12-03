@@ -1,0 +1,212 @@
+/* stylelint-disable no-descending-specificity */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400&family=Roboto+Slab:wght@100;200;300;400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  padding: 15px 10%;
+  background-color: #fff;
+}
+
+.bar > .nav {
+  margin: 0 30px;
+}
+
+.logo-head {
+  font-size: 25px;
+  color: #0290ff;
+}
+
+.nav a {
+  font-weight: 700;
+  margin: 10px;
+  text-decoration: none;
+  color: #5c5c5c;
+}
+
+.nav a:hover {
+  color: #0290ff;
+}
+
+.book-mark {
+  margin: 25px 10%;
+}
+
+.buks-list {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 15px;
+  margin: 30px 0;
+  border: 1px solid #c0c0c0;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.buks-list * {
+  background-color: #fff;
+}
+
+.buks-list h3 {
+  margin-top: 5px;
+  margin-bottom: 1px;
+  font-family: 'Roboto', sans-serif;
+  color: #1f1f1f;
+  font-size: 25px;
+}
+
+.cate {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #bcb9b9;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.authors {
+  color: #0290ff;
+}
+
+.button {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.button button {
+  border: none;
+  font-weight: 500;
+  color: #4386bf;
+}
+
+.loading {
+  border: none;
+  font-weight: 500;
+  padding: 15px 25px;
+  margin: 200px 530px;
+  width: 20%;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1.8rem;
+  color: #fff;
+  background-color: #0290ff;
+}
+
+.button button:nth-child(2) {
+  border-left: 1px solid #c0c0c0;
+  border-right: 1px solid #c0c0c0;
+  padding: 0 10px;
+}
+
+.button button:hover {
+  cursor: pointer;
+}
+
+.genaral-contain {
+  margin: 20px 10%;
+  border-top: 1px solid #c0c0c0;
+}
+
+.genaral-contain h1 {
+  margin: 30px 0;
+  color: #c2c2c2;
+  font-size: 23px;
+}
+
+.genaral-contain .list-form {
+  display: flex;
+  gap: 15px;
+}
+
+.genaral-contain input {
+  padding: 5px;
+  width: 38%;
+}
+
+.genaral-contain .button-sub {
+  padding: 15px 25px;
+  width: 24%;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: rgb(201, 186, 186);
+  background-color: #4693ce;
+}
+
+.reading {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+}
+
+.pre-pre {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.read-desc {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.percent-com {
+  font-size: 2.5rem;
+}
+
+.round {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border: 16px solid #f0e8e8;
+  border-right: 1.5rem solid #0290ff;
+  transform: rotate(10deg);
+}
+
+.reading .comon {
+  font-size: 0.7rem;
+  color: #c0c0c0;
+}
+
+.first-chap {
+  border-left: 2px solid #a59c9c;
+  padding: 0 45px;
+}
+
+.first-chap h2 {
+  margin: 10px 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e2d2d2;
+}
+
+.first-chap button {
+  cursor: pointer;
+  margin: 10px 0;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #0290ff;
+}

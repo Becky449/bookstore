@@ -1,52 +1,29 @@
-const url = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/bOjZTrdg8vZWngaA1M6c/books';
+const apiBaseURL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/';
+const appKey = 'buTN0wMinFmTFxVR2atj/';
+const apiURL = apiBaseURL + appKey;
 
-const getData = async (url) => {
-  try {
-    const response = await fetch(url);
-    return response.json();
-  } catch (error) {
-    throw new Error(error.message);
-  }
+const addAPI = async (data) => {
+  const response = await fetch(`${apiURL}books/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: JSON.stringify(data),
+  }).then((response) => response.text());
+  return response;
 };
 
-const postData = async (url, data) => {
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.text();
-  } catch (error) {
-    throw new Error(error.message);
-  }
+const removeAPI = async (id) => {
+  const response = await fetch(`${apiURL}books/${id}`, {
+    method: 'DELETE',
+  }).then((response) => response.text());
+  return response;
 };
 
-const deleteData = async (url, id) => {
-  try {
-    const response = await fetch(url, {
-      method: 'DELETE',
-      body: JSON.stringify(
-        {
-          item_id: id,
-        },
-      ),
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return await response.text();
-  } catch (error) {
-    throw new Error(error.message);
-  }
+const fetchAPI = async () => {
+  const fetchedData = await fetch(`${apiURL}books/`)
+    .then((response) => response.json());
+  return fetchedData;
 };
 
-export const fetchBooks = async () => getData(url);
-
-export const postBook = async (data) => postData(url, data);
-
-export const deleteBook = async (id) => deleteData(`${url}/${id}`);
+export { fetchAPI, removeAPI, addAPI };
