@@ -1,13 +1,11 @@
 import React from 'react';
-import Button from './Shared/Button';
 
-const Categories = () => (
-  <>
-    <div className="book-categories">
-      <h2>Under Construction</h2>
-      <Button btnName="category-btn" btnValue="Check Status" />
+function Categories() {
+  return (
+    <div>
+      Under construction
     </div>
-  </>
-);
+  );
+}
 
 export default Categories;

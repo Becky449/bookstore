@@ -1,15 +1,16 @@
+/* eslint-disable */
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
-import { BrowserRouter } from 'react-router-dom';
-import reportWebVitals from './reportWebVitals';
-import App from './Components/App';
+import { Provider } from 'react-redux';
+import Books from './components/BookStore';
+import store from './redux/configureStore';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <Books />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root'),
 );
-
-reportWebVitals();
