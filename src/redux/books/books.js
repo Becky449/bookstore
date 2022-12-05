@@ -1,68 +1,109 @@
-/* eslint-disable no-case-declarations */
-import * as api from '../../api/api';
+/* eslint-disable no-use-before-define */
+const ADD_BOOK = 'BOOKSTORE/book/ADD_BOOK';
+const REMOVE_BOOK = 'BOOKSTORE/book/REMOVE_BOOK';
+const GET_BOOK = 'BOOKSTORE/book/GET_BOOK';
+const baseUrl = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/N9kNSPkepKOodGzyBDZW/books';
+const initialState = [];
 
-const ADD_BOOK = 'BookStores/books/ADD_BOOK';
-const REMOVE_BOOK = 'BookStores/books/REMOVE_BOOK';
-const GET_BOOKS = 'BookStores/books/GET_BOOKS';
+const getBookFromApi = async () => {
+  const res = await fetch(baseUrl, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
 
-const handleData = (data) => {
-  const books = [];
-  const keys = Object.keys(data);
-
-  keys.forEach((key, index) => {
-    const book = data[keys[index]];
-    book[0].item_id = key;
-
-    books.push(book[0]);
   });
-
-  return books;
+  const data = await res.json();
+  const bookData = Object.keys(data).map((id) => ({
+    id,
+    title: data[id][0].title,
+    author: data[id][0].author,
+  }));
+  return bookData;
 };
 
-// This shows how to implement Action Creators
-export const getBooks = () => async (dispatch) => {
-  try {
-    const data = await api.fetchBooks();
+// action for getting books
+export const getBook = () => (async (dispatch) => {
+  const data = await getBookFromApi();
+  dispatch({
+    type: GET_BOOK,
+    payload: data,
 
-    dispatch({ type: GET_BOOKS, payload: handleData(data) });
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  });
+});
+
+const PushbookstoApi = async (payload) => {
+  const {
+    id, title, author, category,
+  } = payload;
+  const sendBooks = await fetch(baseUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      item_id: id,
+      title,
+      author,
+      category,
+    }),
+  });
+  return sendBooks;
 };
 
-export const addBook = (book) => async (dispatch) => {
-  try {
-    await api.postBook(book);
+// action for pushing books
+export const pushBook = (payload) => (async (dispatch) => {
+  const { id, title, author } = payload;
+  await PushbookstoApi(payload);
+  dispatch({
+    type: ADD_BOOK,
+    payload: {
+      id,
+      title,
+      author,
+    },
 
-    dispatch({ type: ADD_BOOK, payload: book });
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  });
+});
+
+// for removing book
+
+const removeBookFromApi = async (id) => {
+  const del = await fetch(`${baseUrl}/${id}`, {
+    method: 'DELETE',
+    body: JSON.stringify({
+      item_id: id,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  (await del.text());
 };
 
-export const removeBook = (bookId) => async (dispatch) => {
-  try {
-    await api.deleteBook(bookId);
+export const removeBooks = (id) => (async (dispatch) => {
+  await removeBookFromApi(id);
+  dispatch({
+    type: REMOVE_BOOK,
+    id,
 
-    dispatch({ type: REMOVE_BOOK, payload: bookId });
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
+  });
+});
 
-// This code shows how Reducers are implemented
+// reducers
 
-const reducer = (state = [], action) => {
-  switch (action.type) {
+const booksReducer = (state = initialState, action) => {
+  const { type, payload, id } = action;
+  switch (type) {
     case ADD_BOOK:
-      return [...state, action.payload];
-    case GET_BOOKS:
-      return action.payload;
+      return [...state, payload];
     case REMOVE_BOOK:
-      return state.filter((book) => book.item_id !== action.payload);
+      return state.filter((book) => book.id !== id);
+    case GET_BOOK:
+      return payload;
     default:
       return state;
   }
 };
-// export default reducer;
-export default reducer;
+
+export default booksReducer;

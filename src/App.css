@@ -1,0 +1,242 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.bookContainer {
+  display: flex;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #e8e8e8;
+  padding: 2rem;
+  width: auto;
+  justify-content: space-between;
+  margin-bottom: 2%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fafafa;
+  font-family: 'Inter', sans-serif;
+  padding: 6%;
+}
+
+.nav-bar {
+  padding: 24px 4%;
+  background-color: #fff;
+  border: 1px solid #e8e8e8;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+ul {
+  text-decoration: none;
+  list-style: none;
+}
+
+.logo {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #0290ff;
+}
+
+nav.nav {
+  display: flex;
+  gap: 15px;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  border: none;
+  gap: 10px;
+}
+
+.category {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.875rem;
+  opacity: 0.5;
+}
+
+.title {
+  font-family: "Montserrat", serif;
+  font-weight: 700;
+  margin-top: 0.188rem;
+  font-size: 1.375rem;
+  letter-spacing: -0.2px;
+  color: #121212;
+}
+
+.update {
+  cursor: pointer;
+  border: none;
+  background-color: #0290ff;
+  border-radius: 3px;
+  padding: 18px 24px;
+  font-family: "Roboto Slab", serif;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.current {
+  font-family: "Roboto Slab", serif;
+  font-weight: 300;
+  color: #121212;
+  font-size: 0.813rem;
+  opacity: 0.5;
+}
+
+.chapter-number {
+  margin-top: 0.438rem;
+  font-size: 1rem;
+  letter-spacing: -0.4px;
+  font-family: "Roboto Slab", serif;
+  font-weight: 300;
+  color: #121212;
+}
+
+.progressreader {
+  position: relative;
+  border-radius: 50%;
+  width: 4.25rem;
+  height: 4.25rem;
+  border: 5px solid #307bbe;
+  border-left-color: #e8e8e8;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.progressBar {
+  display: flex;
+  align-items: center;
+  margin-left: 16rem;
+  gap: 1rem;
+  border-right: 1px solid #e8e8e8;
+  padding-right: 6rem;
+}
+
+.booklist {
+  gap: 2%;
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+  width: 70rem;
+}
+
+#root {
+  margin: 0;
+  border-radius: 4px;
+  box-shadow: 0 0 60px 0 rgb(0 0 0 / 5%);
+  background-color: #fafafa;
+}
+
+.addBook {
+  display: flex;
+  flex-direction: column;
+  padding: 4%;
+  border-top: 1px solid #e8e8e8;
+}
+
+.bookform {
+  display: flex;
+  gap: 40px;
+}
+
+.booktext {
+  opacity: 0.5;
+  padding-bottom: 10px;
+}
+
+.authors {
+  width: 50%;
+  height: 30px;
+}
+
+input {
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #e8e8e8;
+  background-color: #fff;
+  font-size: 1rem;
+  letter-spacing: -0.15px;
+  color: #121212;
+}
+
+.title-input {
+  width: 50%;
+}
+
+.author-input {
+  width: 30%;
+}
+
+.newbook {
+  cursor: pointer;
+  width: 20%;
+  padding: 12px;
+  border-radius: 3px;
+  background-color: #0290ff;
+  border: none;
+  letter-spacing: 0.5px;
+  color: #fff;
+  font-size: 0.813rem;
+  font-weight: 700;
+  font-family: "Roboto Slab", serif;
+}
+
+.finished {
+  font-family: "Montserrat", sans-serif;
+  color: #121212;
+  font-size: 2rem;
+}
+
+.completed {
+  font-size: 0.875rem;
+  opacity: 0.5;
+}
+
+.author {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: #4386bf;
+}
+
+.icon {
+  margin-left: 55%;
+  border: solid 1px #e8e8e8;
+  width: 2rem;
+  height: 2rem;
+  padding: 4px;
+  border-radius: 50%;
+  color: #0290ff;
+}
+
+.btn {
+  font-family: "Roboto Slab", serif;
+  background-color: transparent;
+  border-top: none;
+  border-bottom: none;
+  color: #4386bf;
+  font-size: 0.875rem;
+  font-weight: 300;
+  border-left: none;
+  cursor: pointer;
+  border-right: 1px solid #e8e8e8;
+  padding: 5px;
+}
+
+.btn::before {
+  height: 50%;
+}
+
+.edit {
+  border-right: none;
+}
